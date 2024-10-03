@@ -29,64 +29,93 @@ public class TransposicaoDeColunas {
     static int quantidadeLinhas;
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        BufferedReader reader = null;
 
         //LEITURA
+        
+        descriptografa();
+
+    }
+
+    /**
+     * cria o inputArray e solicita c para criptografar e d para
+     * descriptografar, alterando<br>
+     * a variável opcao
+     */
+    public static void LeituraDoInputTxt() {
         try {
+            Scanner input = new Scanner(System.in);
+            BufferedReader reader = null;
             reader = new BufferedReader(new FileReader("input.txt"));
 
             System.out.println("Qual a chave?");
             chaveSTR = input.next();
             chaveArray = chaveSTR.toCharArray();
             System.out.println("digite \"d\" para descriptografar e \"c\" para criptografar");
-            //opcao = input.next().charAt(0);
+            opcao = input.next().charAt(0);
 
             StringBuilder content = new StringBuilder();
             String line;
 
-            // Lê o arquivo linha por linha
             while ((line = reader.readLine()) != null) {
-                // Adiciona a linha lida ao StringBuilder
                 content.append(line);
             }
             reader.close();
 
-            // Converte o conteúdo para um vetor de char
             inputArray = content.toString().toCharArray();
 
         } catch (IOException ex) {
             Logger.getLogger(TransposicaoDeColunas.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-
-        criptografa();
-
     }
 
     public static void criptografa() {
+        LeituraDoInputTxt();
         calculaLinhas();
         transformaVetorInputEmMatriz();
         printarColunas();
         System.out.println("");
         ordenaMatrizOrdemAlfabetica();
         printarColunas();
-        criaArrayCriptografado();
+        criaOutputArray();
+        escreveTxtCriptografado();
+    }
+    
+    public static void descriptografa() {
+        LeituraDoInputTxt();
+        calculaLinhas();
+        transformaVetorInputEmMatriz();
+        printarColunas();
+        System.out.println("");
+        ordenaMatrizOrdemPelaChave();
+        printarColunas();
+        criaOutputArray();
         escreveTxtCriptografado();
     }
 
+    /**
+     * calcula a quantidade de linhas que cada coluna terá.<br>
+     * atribui essa quantidade a variavel quantidadeLinhas.
+     */
     public static void calculaLinhas() {
         quantidadeLinhas = Math.round((float) inputArray.length / chaveArray.length);
     }
 
+    /**
+     * preenche a matriz colunas [coluna][linha] com os char's provenientes do
+     * inputArray.<br>
+     * a linha zero recebe a chave. o espaço[j][i] que ficar em branco recebe
+     * Ø.<br>
+     * o código para descriptografar não tem como ficar em branco.
+     */
     public static void transformaVetorInputEmMatriz() {
         colunas = new char[chaveArray.length][(quantidadeLinhas + 1)];
         /*
-        ---------------------->chaveArray.length
-        | letra letra   ... |
-        | codig codig   ... |
-        | codig codig   ... |
-        | codig codig   ... |
+         ----------------------->chaveArray.length
+        ⬇ | letra letra   ... |
+        ⬇ | codig codig   ... |
+        ⬇ | codig codig   ... |
+        ⬇ | codig codig   ... |
         ⬇
         ️(quantidadeLinhas+1)
          */
@@ -112,6 +141,9 @@ public class TransposicaoDeColunas {
         }
     }
 
+    /**
+     * metodo para embaralhar seguindo a criptografia.
+     */
     public static void ordenaMatrizOrdemAlfabetica() {
         // Array auxiliar para armazenar as colunas
         char[][] matrizAux = new char[chaveArray.length][quantidadeLinhas + 1];
@@ -135,15 +167,39 @@ public class TransposicaoDeColunas {
     }
 
     /**
-     * cria um array "embaralhado", empilhando as colunas em ordem crescente da
-     * primeira linha das colunas, pelo unicode<br>
-     * como méttrica. apaga também os valores da chave, anteriormente utilizados
+     * metodo para desembaralhar seguindo a chave.
+     */
+    public static void ordenaMatrizOrdemPelaChave() {
+        // Criar uma matriz auxiliar para armazenar as colunas
+        char[][] matrizAux = new char[chaveArray.length][quantidadeLinhas + 1];
+
+        // Copiar as colunas da matriz original para a matriz auxiliar (incluindo a linha da chave)
+        for (int i = 0; i < chaveArray.length; i++) {
+            for (int j = 0; j <= quantidadeLinhas; j++) { // <= para incluir a última linha
+                matrizAux[i][j] = colunas[i][j];
+            }
+        }
+
+        // Ordenar as colunas com base nos valores da primeira linha (linha 0), que contém a chave
+        Arrays.sort(matrizAux, (col1, col2) -> Character.compare(col1[0], col2[0]));
+
+        // Copiar as colunas ordenadas de volta para a matriz original
+        for (int i = 0; i < chaveArray.length; i++) {
+            for (int j = 0; j <= quantidadeLinhas; j++) { // <= para incluir a última linha
+                colunas[i][j] = matrizAux[i][j];
+            }
+        }
+    }
+
+    /**
+     * cria o outputArray , empilhando as colunas em ordem crescente da
+     * primeira linha das colunas.<br>
+     * Apaga também os valores da chave, anteriormente utilizados
      * para formar a matriz da função printar.
      *
      * @see printar()
      */
-    public static void criaArrayCriptografado() {
-        // Cria o outputArray com o tamanho apropriado (excluindo os caracteres de preenchimento 'Ø')
+    public static void criaOutputArray() {
         int tamanhoFinal = (colunas.length * colunas[0].length);
         outputArray = new char[tamanhoFinal];
 
@@ -180,7 +236,6 @@ public class TransposicaoDeColunas {
         }
         System.out.println("}");
 
-        
     }
 
     public static void printarColunas() {
