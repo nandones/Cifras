@@ -31,8 +31,12 @@ public class TransposicaoDeColunas {
     public static void main(String[] args) {
 
         //LEITURA
-        
-        descriptografa();
+        LeituraDoInputTxt();
+        if (opcao == 'd' || opcao == 'D') {
+            descriptografa();
+        } else {
+            criptografa();
+        }
 
     }
 
@@ -70,7 +74,6 @@ public class TransposicaoDeColunas {
     }
 
     public static void criptografa() {
-        LeituraDoInputTxt();
         calculaLinhas();
         transformaVetorInputEmMatriz();
         printarColunas();
@@ -80,9 +83,8 @@ public class TransposicaoDeColunas {
         criaOutputArray();
         escreveTxtCriptografado();
     }
-    
+
     public static void descriptografa() {
-        LeituraDoInputTxt();
         calculaLinhas();
         transformaVetorInputEmMatriz();
         printarColunas();
@@ -173,29 +175,38 @@ public class TransposicaoDeColunas {
         // Criar uma matriz auxiliar para armazenar as colunas
         char[][] matrizAux = new char[chaveArray.length][quantidadeLinhas + 1];
 
-        // Copiar as colunas da matriz original para a matriz auxiliar (incluindo a linha da chave)
+        // Preenche o array auxiliar com as colunas da matriz original (incluindo a linha da chave)
         for (int i = 0; i < chaveArray.length; i++) {
             for (int j = 0; j <= quantidadeLinhas; j++) { // <= para incluir a última linha
                 matrizAux[i][j] = colunas[i][j];
             }
         }
 
-        // Ordenar as colunas com base nos valores da primeira linha (linha 0), que contém a chave
-        Arrays.sort(matrizAux, (col1, col2) -> Character.compare(col1[0], col2[0]));
-
-        // Copiar as colunas ordenadas de volta para a matriz original
-        for (int i = 0; i < chaveArray.length; i++) {
-            for (int j = 0; j <= quantidadeLinhas; j++) { // <= para incluir a última linha
-                colunas[i][j] = matrizAux[i][j];
+        for (int charChave = 0; charChave < chaveArray.length; charChave++) {
+            for (int colunaEmQuestao = 0; colunaEmQuestao < chaveArray.length; colunaEmQuestao++) {
+                if(chaveArray[charChave]== matrizAux[colunaEmQuestao][0]){
+                    for (int i = 0; i < matrizAux[0].length; i++) {
+                        colunas[colunaEmQuestao][i] = matrizAux[charChave][i];
+                    }
+                }
             }
         }
+        System.out.println("\n\nteste\n\n");
+        for (int i = 0; i < colunas.length; i++) {
+            for (int j = 0; j < colunas[0].length; j++) {
+                System.out.print(colunas[i][j]);
+            }
+            System.out.println("");
+        }
+
+ 
     }
 
     /**
-     * cria o outputArray , empilhando as colunas em ordem crescente da
-     * primeira linha das colunas.<br>
-     * Apaga também os valores da chave, anteriormente utilizados
-     * para formar a matriz da função printar.
+     * cria o outputArray , empilhando as colunas em ordem crescente da primeira
+     * linha das colunas.<br>
+     * Apaga também os valores da chave, anteriormente utilizados para formar a
+     * matriz da função printar.
      *
      * @see printar()
      */
