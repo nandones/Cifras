@@ -1,6 +1,5 @@
 package com.mycompany.cesar;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -10,6 +9,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author NANDONES
+ */
 public class CifraDeCesar {
 
     public static void main(String[] args) {
@@ -51,7 +54,7 @@ public class CifraDeCesar {
 
         } catch (IOException ex) {
             Logger.getLogger(CifraDeCesar.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
 
         //ESCRITA
@@ -62,13 +65,13 @@ public class CifraDeCesar {
             //o -1 pula o último '\n'
             System.out.println("{");
             for (int i = 0; i < charArray.length - 1; i++) { //pula o último \n
-                
+
                 char newChar = (char) ((int) charArray[i] + chave);
                 content.append(newChar);
                 //System.out.println(" "+charArray[i]+" -> "+ newChar);
                 //System.out.print("["+charArray[i]+"]");
                 //System.out.print("["+newChar+"]");
-                System.out.println("["+charArray[i]+"]("+((int) charArray[i])+") = ["+newChar+"] ("+((int) newChar)+")");
+                System.out.println("[" + charArray[i] + "](" + ((int) charArray[i]) + ") = [" + newChar + "] (" + ((int) newChar) + ")");
             }
             System.out.println("}");
             String txtCriptografado = content.toString();

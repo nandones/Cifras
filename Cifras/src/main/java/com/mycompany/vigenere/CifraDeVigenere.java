@@ -9,6 +9,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author NANDONES
+ */
 public class CifraDeVigenere {
 
     static String chaveSTR = "";
@@ -62,7 +66,7 @@ public class CifraDeVigenere {
             int posicaoCaracter = 0;
             for (int i = 0; i < charArray.length - 1; i++) { //pula o último \n
                 int valor;
-                if(posicaoCaracter == chaveARR.length){
+                if (posicaoCaracter == chaveARR.length) {
                     posicaoCaracter = 0;
                 }
                 valor = (int) chaveARR[posicaoCaracter];
