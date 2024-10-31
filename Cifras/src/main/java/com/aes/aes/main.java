@@ -25,24 +25,17 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        //testandoChavesEivS();
-        //AESUtil.teste();
-        String plainTexto = ReaderAndWriterUtil.LeInputTXT();
-        ReaderAndWriterUtil.EscreveOutputTXT("testehahahahah");
-        /*System.out.println("Olá, estaremos testando a criptografia."
-                + "\nPrimeiro, defina a String correspondente ao plainText:");
-        String plainText = input.next();
-        criptografa(plainText);
-        
-        System.out.println("Olá, estaremos agora testando a decriptografia."
-                + "\nPrimeiro, defina a String correspondente ao encryptedText:");
-        String encryptedText = input.next();
-        
-        descriptografa(encryptedText);*/
+        System.out.println("prssione [c] para criptografar e [d] para descriptografar");
+        char menu = input.next().charAt(0);
+        if(menu == 'c' || menu == 'C'){
+            ReaderAndWriterUtil.EscreveOutputTXT(criptografa(ReaderAndWriterUtil.LeInputTXT()));
+        }else{
+            ReaderAndWriterUtil.EscreveOutputTXT(descriptografa(ReaderAndWriterUtil.LeInputTXT()));
+        }
         
     }
     
-    public static void criptografa(String plainText) throws Exception{
+    public static String criptografa(String plainText) throws Exception{
         System.out.println("gerando a chave AES...");
   
         SecretKey key = AESUtil.generateKey();
@@ -58,9 +51,11 @@ public class main {
         System.out.println("criptografando...");
         String encryptedText = AESUtil.encrypt(plainText, key, iv);
         System.out.println("Texto Criptografado: " + encryptedText);
+        return encryptedText;
+        
     }
     
-    public static void descriptografa(String encryptedText) throws Exception{
+    public static String descriptografa(String encryptedText) throws Exception{
         System.out.println("digite aqui a chave AES(Base64):");
         String encodedKey = input.next();
         System.out.println("gerando a chave AES...");
@@ -72,6 +67,7 @@ public class main {
         System.out.println("decriptografando...");
         String plainText = AESUtil.decrypt(encryptedText, key, iv);
         System.out.println("Texto Decriptografado: " + plainText);
+        return plainText;
     }
     
     public static void testandoChavesEivS() throws Exception{
