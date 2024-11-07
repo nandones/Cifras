@@ -97,9 +97,8 @@ public class RSAUtil { // Declara a classe principal CriptografaAssimetrica
 
     /**
      * Método principal que demonstra o uso da criptografia e descriptografia RSA
-     * @param args 
      */
-    public static void main(String[] args) {
+    public static void teste() {
         try (Scanner scanner = new Scanner(System.in)) { // Inicializa o Scanner para ler a entrada do usuário
             try {
                 // Gera um par de chaves RSA
