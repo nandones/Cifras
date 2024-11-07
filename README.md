@@ -38,7 +38,8 @@ Este projeto implementa cinco tipos de criptografia, sendo três clássicas (Tra
    ```
 
 2. **Run File**:
-   Selecione a classe que deseja executar e rode o arquivo; Projects > Cifras > Source packages > selecione o package com o algoritmo desejado > e rightclick no arquivo que contenha main class > "Run File".
+   Selecione a classe que deseja executar e rode o arquivo;
+   ou na IDE: Projects > Cifras > Source packages > selecione o package com o algoritmo desejado > e rightclick no arquivo que contenha main class > "Run File".
 
 ## ADENDO:
 - Para a transposição de colunas, não utilize chaves com letras repetidas, pois o algoritmo não diferencia colunas idênticas.
