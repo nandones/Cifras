@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package com.aes.aes;
+package com.mycompany.aes;
 
-import static com.aes.aes.AESUtil.generateIv;
-import com.mycompany.colunas.TransposicaoDeColunas;
+import static com.mycompany.aes.AESUtil.generateIv;
 import java.util.Base64;
 import java.util.Scanner;
 import javax.crypto.SecretKey;
@@ -13,7 +8,7 @@ import javax.crypto.spec.IvParameterSpec;
 
 /**
  *
- * @author nandones
+ * @author NANDONES
  */
 public class main {
     
@@ -36,12 +31,13 @@ public class main {
     }
     
     public static String criptografa(String plainText) throws Exception{
-        System.out.println("gerando a chave AES...");
+        System.out.println("gerando a c"
+                + "chave AES...");
   
         SecretKey key = AESUtil.generateKey();
         
         //apenas para imprimir a chave
-        String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded()); // Converte a chave para Base64
+        String encodedKey = AESUtil.keyToString(key);
         System.out.println("Chave AES (Base64): " + encodedKey); // Imprime a chave AES codificada
         System.out.println("copie esta chave para descriptografar o texto");
         

@@ -1,4 +1,4 @@
-package com.aes.aes;
+package com.mycompany.aes;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,6 +11,10 @@ import java.util.Base64; // Importa Base64 para codificação e decodificação 
 import java.util.Scanner;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ *
+ * @author nandones
+ */
 public class AESUtil {
     
     public static Scanner input = new Scanner(System.in);
@@ -37,12 +41,20 @@ public class AESUtil {
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey); // Decodifica a string Base64 para bytes
         return new SecretKeySpec(decodedKey, "AES"); // Cria e retorna uma SecretKey com os bytes decodificados
     }
+    
+    public static String keyToString(SecretKey key){
+        String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded()); // Converte a chave para Base64
+        //System.out.println("Chave AES (Base64): " + encodedKey); // Imprime a chave AES codificada
+        //System.out.println("copie esta chave para descriptografar o texto");
+        return encodedKey;
+    }
 
     /**
      * Função para gerar um vetor de inicialização (IV) com base na chave.<br>
      * A atual implementação garante a geração do mesmo (IV) para cada key.
-     * @param keyFunção para gerar um vetor de inicialização (IV) com base na chave
+     * @param key para gerar um vetor de inicialização (IV) com base na chave
      * @return 
+     * @throws java.security.NoSuchAlgorithmException 
      */
     public static IvParameterSpec generateIv(SecretKey key) throws NoSuchAlgorithmException {
     byte[] keyBytes = key.getEncoded(); // Obtém os bytes da chave

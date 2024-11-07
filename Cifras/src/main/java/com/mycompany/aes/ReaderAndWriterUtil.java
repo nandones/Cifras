@@ -1,4 +1,4 @@
-package com.aes.aes;
+package com.mycompany.aes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,6 +21,7 @@ public class ReaderAndWriterUtil {
         String line;
 
         // Lê o arquivo linha por linha
+        System.out.println("lendo o input...");
         while ((line = reader.readLine()) != null) {
             // Adiciona a linha lida ao StringBuilder
             content.append(line).append("\n"); // Adiciona a nova linha manualmente
@@ -29,6 +30,7 @@ public class ReaderAndWriterUtil {
         reader.close();
 
         //só pra dar output pelo retorno visual
+        System.out.println("caracteres do input:");
         char[] charArray = content.toString().toCharArray();
         for (int i = 0; i < charArray.length; i++) {
             System.out.println("[" + charArray[i] + "](" + ((int) charArray[i]) + ")");
@@ -38,9 +40,9 @@ public class ReaderAndWriterUtil {
     }
     
     public static void EscreveOutputTXT(String teste) throws IOException {
+        System.out.println("escrevendo o output...");
         writer = new BufferedWriter(new FileWriter("output.txt"));
         writer.write(teste);
         writer.close();
-        System.out.println("era pra ter escrito");
     }
 }
