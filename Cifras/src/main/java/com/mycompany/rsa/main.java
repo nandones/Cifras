@@ -4,7 +4,6 @@
  */
 package com.mycompany.rsa;
 
-import static com.mycompany.rsa.RSAUtil.generateRSAKeyPair;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -33,7 +32,7 @@ public class main {
     public static String criptografa(String plainText) throws Exception{
         
         System.out.println("gerando o par de chaves RSA...");
-        KeyPair keyPair = generateRSAKeyPair(); // Gera o par de chaves RSA
+        KeyPair keyPair = RSAUtil.generateRSAKeyPair(); // Gera o par de chaves RSA
         PublicKey publicKey = keyPair.getPublic(); // Obtém a chave pública
         PrivateKey privateKey = keyPair.getPrivate(); // Obtém a chave privada
         
